@@ -1,12 +1,65 @@
 # BigFileReadSolution
 
+先执行写入测试文件方法
+```java
+import com.xingyun.model.UserInfo;
+import com.xingyun.util.SmartWriteBigFileUtils;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.File;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * @author 星云
+ * @功能
+ * @日期和时间 9/10/2019 9:02 PM
+ */
+@Slf4j
+public class WriteMainTest {
+    /**
+     * 当前项目根目录
+     */
+    private static final String projectBasePath=new File("").getAbsolutePath();
+    /**
+     * src/test/resources
+     */
+    private static final String testResourcePath=projectBasePath+File.separator+"src"+File.separator+"test"+File.separator+"resources";
+    /**
+     * src/test/resources/test.csv
+     */
+    private static final String testFileName=testResourcePath+File.separator+"test.csv";
+
+    private static final List<String> resultList=new ArrayList<>();
+    public static void main(String[] args) {
+        Long startTime= System.currentTimeMillis();
+        //生成一千万条测试数据 1 GB左右数据
+        int length=10000000;
+        for (int i = 0; i <length ; i++) {
+            UserInfo userInfo=new UserInfo();
+            userInfo.setUserInfoId(Long.valueOf(i));
+            userInfo.setUserInfoUUID(UUID.randomUUID().toString().replace("-",""));
+            userInfo.setUserInfoName("testUser"+i);
+            userInfo.setUserInfoAge(18);
+            resultList.add(userInfo.toString());
+        }
+        SmartWriteBigFileUtils.writeDataToFileByBufferWriter(testFileName,resultList);
+        Long endTime= System.currentTimeMillis();
+
+        //测试数据生成共耗时:23592毫秒
+        log.info("测试数据生成共耗时:{}毫秒",(endTime-startTime));
+    }
+}
+```
 读取大文件测试
 ```java
 import com.xingyun.model.UserInfo;
 import com.xingyun.util.ParseFileUtils;
 import com.xingyun.util.SmartReadBigFileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.lucene.util.RamUsageEstimator;
 
 import java.io.File;
 import java.util.List;
@@ -93,8 +146,6 @@ public class ReadMainTest {
             log.info("------读取List<String>集合存储情况start------");
             //打印对象信息
             showFileDataInfo(readLineDataList);
-            //显示对象在内存中的使用情况
-            showObjectJVMInfo(readLineDataList);
             log.info("------读取List<String>集合存储情况end------");
         }
 
@@ -108,8 +159,6 @@ public class ReadMainTest {
             log.info("------读取List<UserInfo>集合存储情况start------");
             //打印对象信息
             showFileDataInfo(readLineDataList);
-            //显示对象在内存中的使用情况
-            showObjectJVMInfo(readLineDataList);
             log.info("------读取List<UserInfo>集合存储情况end------");
         }
         //使用完毕销毁读取的数据List<String>
@@ -133,16 +182,6 @@ public class ReadMainTest {
             count++;
         }
         log.info("当前List<String>中一共有"+count+"行数据");
-    }
-
-    /**
-     * 显示对象内存占用情况
-     * @param object
-     */
-    private static void showObjectJVMInfo(Object object){
-       log.info("计算指定对象及其引用树上的所有对象的综合大小，单位字节:"+RamUsageEstimator.sizeOf(object));
-       log.info("计算指定对象本身在堆空间的大小，单位字节:"+RamUsageEstimator.shallowSizeOf(object));
-       log.info("计算指定对象及其引用树上的所有对象的综合大小，返回可读的结果:"+RamUsageEstimator.humanSizeOf(object));
     }
     /**
      * 清理释放空间
