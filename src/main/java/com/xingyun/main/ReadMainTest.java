@@ -4,7 +4,6 @@ import com.xingyun.model.UserInfo;
 import com.xingyun.util.ParseFileUtils;
 import com.xingyun.util.SmartReadBigFileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.lucene.util.RamUsageEstimator;
 
 import java.io.File;
 import java.util.List;
@@ -91,8 +90,6 @@ public class ReadMainTest {
             log.info("------读取List<String>集合存储情况start------");
             //打印对象信息
             showFileDataInfo(readLineDataList);
-            //显示对象在内存中的使用情况
-            showObjectJVMInfo(readLineDataList);
             log.info("------读取List<String>集合存储情况end------");
         }
 
@@ -106,8 +103,6 @@ public class ReadMainTest {
             log.info("------读取List<UserInfo>集合存储情况start------");
             //打印对象信息
             showFileDataInfo(readLineDataList);
-            //显示对象在内存中的使用情况
-            showObjectJVMInfo(readLineDataList);
             log.info("------读取List<UserInfo>集合存储情况end------");
         }
         //使用完毕销毁读取的数据List<String>
@@ -131,16 +126,6 @@ public class ReadMainTest {
             count++;
         }
         log.info("当前List<String>中一共有"+count+"行数据");
-    }
-
-    /**
-     * 显示对象内存占用情况
-     * @param object
-     */
-    private static void showObjectJVMInfo(Object object){
-       log.info("计算指定对象及其引用树上的所有对象的综合大小，单位字节:"+RamUsageEstimator.sizeOf(object));
-       log.info("计算指定对象本身在堆空间的大小，单位字节:"+RamUsageEstimator.shallowSizeOf(object));
-       log.info("计算指定对象及其引用树上的所有对象的综合大小，返回可读的结果:"+RamUsageEstimator.humanSizeOf(object));
     }
     /**
      * 清理释放空间
