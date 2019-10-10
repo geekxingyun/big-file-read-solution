@@ -159,3 +159,21 @@ public class ReadMainTest {
     }
 }
 ```
+输出结果：
+```
+12:16:42.241 [main] INFO com.xingyun.main.ReadMainTest - 读取csv文件到List<String>集合执行耗时:4274毫秒
+12:16:42.247 [main] INFO com.xingyun.main.ReadMainTest - ------读取List<String>集合存储情况start------
+12:16:42.285 [main] INFO com.xingyun.main.ReadMainTest - 当前List<String>中一共有9999782行数据
+12:16:42.285 [main] INFO com.xingyun.main.ReadMainTest - ------读取List<String>集合存储情况end------
+12:16:42.286 [main] INFO com.xingyun.util.ParseFileUtils - ------对象解析开始------
+12:16:42.292 [main] INFO com.xingyun.util.ParseFileUtils - 当前要解析的总行数:9999782
+12:16:47.770 [main] INFO com.xingyun.util.ParseFileUtils - ------对象解析结束------
+12:16:47.771 [main] INFO com.xingyun.main.ReadMainTest - 解析成对象执行耗时:5486毫秒
+12:16:47.771 [main] INFO com.xingyun.main.ReadMainTest - ------读取List<UserInfo>集合存储情况start------
+12:16:47.796 [main] INFO com.xingyun.main.ReadMainTest - 当前List<String>中一共有9999782行数据
+12:16:47.796 [main] INFO com.xingyun.main.ReadMainTest - ------读取List<UserInfo>集合存储情况end------
+12:16:47.813 [main] INFO com.xingyun.main.ReadMainTest - 
+数据清理成功
+12:16:47.830 [main] INFO com.xingyun.main.ReadMainTest - 
+数据清理成功
+```
