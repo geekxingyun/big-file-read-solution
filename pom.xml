@@ -22,7 +22,7 @@
         <!--设置项目使用第三方依赖包，建议以后都采用这种方式，统一在一个地方声明版本号，这样对项目可以统一管理，方便以后升级-->
         <guava.version>28.1-jre</guava.version>
         <common.io.version>2.6</common.io.version>
-        <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
         <lombok.version>1.18.8</lombok.version>
         <berkeley.db.java.version>3.2.76</berkeley.db.java.version>
     </properties>
